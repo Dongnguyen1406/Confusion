@@ -8,3 +8,5 @@ class HelloAsClass extends Component {
 
 
 export default HelloAsClass;
+
+
