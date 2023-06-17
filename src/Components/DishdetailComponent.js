@@ -7,7 +7,7 @@ function RenderDish({ dish }) {
       <Card >
         <CardImg  width="100%" src={dish.image} alt={dish.name} />
         <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
+            <CardTitle><b>{dish.name}</b></CardTitle>
             <CardText>{dish.description}</CardText>
           </CardBody>
       </Card>
@@ -45,10 +45,10 @@ const DishDetail = ({ dish }) => {
     return (
       <div className="container">
         <div className="row">
-        <div className="col-12 col-md-5 m-1">
+        <div className="col-12 col-md-5 m-1 text-left">
             <RenderDish dish={dish} />
           </div>
-          <div className="col-12 col-md-5 m-1">
+          <div className="col-12 col-md-5 m-1 text-left">
             <RenderComments comments={dish.comments} />
           </div>
         </div>
