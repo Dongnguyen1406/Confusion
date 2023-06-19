@@ -70,6 +70,10 @@ address{
   background-color: #512DA8;
 }
 
+.btn-group {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
 
 
 
