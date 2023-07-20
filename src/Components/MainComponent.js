@@ -9,7 +9,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+import { addComment, fetchDishes, fetchComments, fetchPromos, postComment } from '../redux/ActionCreators';
 
 
 
@@ -20,7 +20,8 @@ const mapDispatchToProps = dispatch => ({
   fetchDishes: () => { dispatch(fetchDishes()) },
   resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
   fetchComments: () => dispatch(fetchComments()),
-  fetchPromos: () => dispatch(fetchPromos())
+  fetchPromos: () => dispatch(fetchPromos()),
+  postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
 });
 
 const mapStateToProps = state => {
@@ -58,8 +59,10 @@ class Main extends Component {
           dishesLoading={this.props.dishes.isLoading}
           dishErrMess={this.props.dishes.errMess}
           promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
+
           promoLoading={this.props.promotions.isLoading}
           promoErrMess={this.props.promotions.errMess}
+
           leader={this.props.leaders.filter((leader) => leader.featured)[0]}
         />
 
@@ -74,6 +77,7 @@ class Main extends Component {
           comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
           commentsErrMess={this.props.comments.errMess}
           addComment={this.props.addComment}
+          postComment={this.props.postComment}
         />
 
       );
@@ -87,7 +91,9 @@ class Main extends Component {
             <Route path='/home' component={HomePage} />
             <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
             <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} />} />
+
             <Route path='/menu/:dishId' component={DishWithId} />
+
             <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
             <Redirect to="/home" />
           </Switch>
